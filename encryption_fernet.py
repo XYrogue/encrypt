@@ -5,7 +5,7 @@ sel = int(input("Would you like to  create a new key, encrypt or decrypt? (0 = c
 if sel == 0:
     key = Fernet.generate_key()
     print("YOUR KEY: ")
-    print(key)
+    print(key.decode())
     with open('thekey.txt', 'wb') as file:
         file.write(key)
 
@@ -18,9 +18,16 @@ if sel == 1:
     text = int(input("do you want to encode a file or plaintext (0 = file, 1 = plaintext) :"))
 
     if text == 0:
-        print("naj!")
+        inp21 = input("path to file to encrypt ").encode('utf-8')
+        with open(inp21, 'rb') as file:
+            key = file.readline()
+        encoded = f.encrypt(inp21)
+        text2 = input("What do you want to call the outfile ?")
+        with open(text2, 'wb') as file:
+            file.write(encoded)
+
     elif text == 1:
-        inp = input("Enter Text: ").encode('utf-8')  # Type here
+        inp = input("Enter Text: ").encode('utf-8')
         encoded = f.encrypt(inp)
         text2 = input("What do you want to call the outfile ?")
         with open(text2, 'wb') as file:
