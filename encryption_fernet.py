@@ -3,14 +3,15 @@ from cryptography.fernet import Fernet
 sel = int(input("Would you like to  create a new key, encrypt or decrypt? (0 = create key , 1 = encrypt, 2 = decrypt) "))
 
 if sel == 0:
+    text2 = input("What do you want to call your key ?")
     key = Fernet.generate_key()
     print("YOUR KEY in plan text: ")
     print(key.decode())
-    with open('thekey.txt', 'wb') as file:
+    with open(text2, 'wb') as file:
         file.write(key)
 
 if sel == 1:
-    inp2 = input("the path to the file you want to use as key ").encode('utf-8')
+    inp2 = input("Please specify path to a encryption-key ").encode('utf-8')
     with open(inp2, 'rb') as file:
         key = file.readline()
     f = Fernet(key)
@@ -33,7 +34,7 @@ if sel == 1:
         with open(text2, 'wb') as file:
             file.write(encoded)
 elif sel == 2:
-    inp2 = input("path to key file ").encode('utf-8')
+    inp2 = input("Please specify path to a encryption-key ").encode('utf-8')
     with open(inp2, 'rb') as file:
         key = file.readline()
     f = Fernet(key)
